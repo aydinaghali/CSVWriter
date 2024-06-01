@@ -46,6 +46,18 @@ class CSVWriter
         }
 
         CSVWriter& add(std::string str){
+            // escpace \n and \r
+            size_t new_line = str.find("\n", 0);
+            while(new_line != std::string::npos){
+                str.replace(new_line, 1, "\\n");
+                new_line = str.find("\n", 0);
+            }
+            size_t carriage_return = str.find("\r", 0);
+            while(carriage_return != std::string::npos){
+                str.replace(carriage_return, 1, "\\r");
+                carriage_return = str.find("\n", 0);
+            }
+            
             //if " character was found, escape it
             size_t position = str.find("\"",0);
             bool foundQuotationMarks = position != std::string::npos;
